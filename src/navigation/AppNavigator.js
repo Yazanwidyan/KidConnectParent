@@ -1,84 +1,48 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {NavigationContainer} from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import CalendarScreen from '../screens/CalendarScreen';
-import ClassDetails from '../screens/Classes/ClassDetails';
-import ClassesList from '../screens/Classes/ClassesList';
+import Calendar from '../screens/Calendar';
+import ChildProfile from '../screens/ChildProfile';
 import Dashboard from '../screens/Dashboard';
 import Messages from '../screens/Messages';
+import Notifications from '../screens/Notifications';
+import Payments from '../screens/Payments';
 import Profile from '../screens/Profile';
-import StudentProfile from '../screens/StudentProfile';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
 
-// Stack for Classes
-const ClassesStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="ClassesList"
-      component={ClassesList}
-      options={{headerShown: false}}
-    />
-    <Stack.Screen
-      name="ClassDetails"
-      component={ClassDetails}
-      options={{title: 'Class Details'}}
-    />
-    <Stack.Screen
-      name="StudentProfile"
-      component={StudentProfile}
-      options={{title: 'Student Profile'}}
-    />
-    {/* <Stack.Screen
-      name="Calendar"
-      component={CalendarScreen}
-      options={{ title: "Calendar" }}
-    /> */}
-  </Stack.Navigator>
-);
-
-const AppNavigator = () => (
-  <Tab.Navigator
-    screenOptions={{
-      headerShown: false,
-      tabBarActiveTintColor: '#25A0DD',
-    }}>
-    <Tab.Screen
-      name="Dashboard"
-      component={Dashboard}
-      options={{
-        tabBarIcon: ({color}) => (
-          <Icon name="tachometer" size={20} color={color} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="Classes"
-      component={ClassesStack}
-      options={{
-        tabBarIcon: ({color}) => <Icon name="users" size={20} color={color} />,
-        headerShown: false,
-      }}
-    />
-    <Tab.Screen
-      name="Messages"
-      component={Messages}
-      options={{
-        tabBarIcon: ({color}) => (
-          <Icon name="envelope" size={20} color={color} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="Profile"
-      component={Profile}
-      options={{
-        tabBarIcon: ({color}) => <Icon name="user" size={20} color={color} />,
-      }}
-    />
-  </Tab.Navigator>
-);
-
-export default AppNavigator;
+export default function AppNavigator() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          headerShown: false,
+          tabBarActiveTintColor: '#25A0DD',
+          tabBarInactiveTintColor: 'gray',
+          tabBarIcon: ({color, size}) => {
+            const icons = {
+              Home: 'home-outline',
+              Feed: 'image-outline',
+              Messages: 'chatbubble-outline',
+              Payments: 'card-outline',
+              Calendar: 'calendar-outline',
+              Notifications: 'notifications-outline',
+              Profile: 'person-outline',
+            };
+            return (
+              <Ionicons name={icons[route.name]} size={size} color={color} />
+            );
+          },
+        })}>
+        <Tab.Screen name="Home" component={Dashboard} />
+        <Tab.Screen name="Feed" component={ChildProfile} />
+        <Tab.Screen name="Messages" component={Messages} />
+        <Tab.Screen name="Payments" component={Payments} />
+        <Tab.Screen name="Calendar" component={Calendar} />
+        <Tab.Screen name="Notifications" component={Notifications} />
+        <Tab.Screen name="Profile" component={Profile} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}

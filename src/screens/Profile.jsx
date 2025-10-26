@@ -1,59 +1,28 @@
-import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
-const Profile = () => {
+import Header from '../components/Header';
+
+export default function Profile() {
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.header}>Profile</Text>
+    <View style={styles.container}>
+      <Header title="My Profile" />
+      <View style={styles.body}>
+        <Text style={styles.label}>Parent Name:</Text>
+        <Text style={styles.value}>John Doe</Text>
 
-      <View style={styles.card}>
-        <Text style={styles.label}>Name</Text>
-        <Text style={styles.value}>Teacher John</Text>
-      </View>
+        <Text style={styles.label}>Email:</Text>
+        <Text style={styles.value}>john@example.com</Text>
 
-      <View style={styles.card}>
-        <Text style={styles.label}>Email</Text>
-        <Text style={styles.value}>teacher@example.com</Text>
+        <Text style={styles.label}>Phone:</Text>
+        <Text style={styles.value}>+1 234 567 890</Text>
       </View>
-    </ScrollView>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
-    padding: 16,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#25A0DD',
-    marginBottom: 16,
-  },
-  card: {
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderRadius: 16,
-    marginBottom: 12,
-    // Shadow for iOS
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    // Elevation for Android
-    elevation: 2,
-  },
-  label: {
-    fontSize: 14,
-    color: '#6B7280',
-  },
-  value: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#111827',
-    marginTop: 4,
-  },
+  container: {flex: 1, backgroundColor: '#FFF'},
+  body: {padding: 16},
+  label: {fontWeight: '600', color: '#444', marginTop: 8},
+  value: {fontSize: 16, color: '#333'},
 });
-
-export default Profile;

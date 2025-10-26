@@ -1,62 +1,28 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 
-const messagesList = [
-  {id: 1, name: 'Parent: Ahmed', message: 'Hi, how is my child today?'},
-  {id: 2, name: 'Parent: Lina', message: 'Can we schedule a meeting?'},
-  {id: 3, name: 'Parent: Sara', message: 'Thank you for the update!'},
-];
+import Header from '../components/Header';
+import MessageBubble from '../components/MessageBubble';
 
-const Messages = () => {
+export default function Messages() {
+  const messages = [
+    {id: 1, text: 'Ava had a great morning!', sender: 'Teacher'},
+    {id: 2, text: 'That’s wonderful to hear!', sender: 'Parent'},
+  ];
+
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.header}>Messages</Text>
-
-      {messagesList.map(msg => (
-        <View key={msg.id} style={styles.messageCard}>
-          <Text style={styles.name}>{msg.name}</Text>
-          <Text style={styles.message}>{msg.message}</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <View style={styles.container}>
+      <Header title="Messages" />
+      <ScrollView style={styles.chat}>
+        {messages.map(msg => (
+          <MessageBubble key={msg.id} message={msg} />
+        ))}
+      </ScrollView>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
-    padding: 16,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#25A0DD',
-    marginBottom: 16,
-  },
-  messageCard: {
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderRadius: 16,
-    marginBottom: 12,
-    // Shadow for iOS
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    // Elevation for Android
-    elevation: 2,
-  },
-  name: {
-    fontWeight: '600',
-    fontSize: 16,
-    color: '#111827',
-  },
-  message: {
-    marginTop: 4,
-    fontSize: 14,
-    color: '#4B5563',
-  },
+  container: {flex: 1, backgroundColor: '#FFF'},
+  chat: {padding: 16},
 });
-
-export default Messages;
